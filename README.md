@@ -25,4 +25,4 @@ Vercel, preset **Other**, pas de commande de build, dossier de sortie `.` (racin
 
 ## Logos
 
-Le bandeau défilant affiche les noms en texte. Pour passer aux vrais logos, mettre les fichiers dans `logos/` et remplacer chaque `<li>Nom</li>` par `<li><img src="/logos/nom.svg" alt="Nom"></li>` (dans les deux copies de la liste). Le style (28px de haut, niveaux de gris, opacité 0.75) est déjà en place.
+Les logos du bandeau sont dans `logos/` (ESSEC, INSA Lyon, KAIST, CGI, ENEDIS, Efficience). Eaton et McKinsey Forward sont encore en texte. Pour en ajouter un, déposer le fichier dans `logos/` et remplacer `<li>Nom</li>` par `<li><img src="/logos/nom.png" alt="Nom" width="…" height="28"></li>`, dans les deux copies de la liste. Le CSS les passe en niveaux de gris à 75 % d'opacité.
