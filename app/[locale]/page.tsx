@@ -5,6 +5,7 @@ import { ContactBar } from "@/components/ContactBar";
 import { CvPreview } from "@/components/CvPreview";
 import { Hero } from "@/components/Hero";
 import { LogoMarquee } from "@/components/LogoMarquee";
+import { SaveContact } from "@/components/SaveContact";
 import { ShareCta } from "@/components/ShareMenu";
 import { profile, siteUrl } from "@/lib/site";
 
@@ -42,8 +43,12 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
         <div className="flex w-full max-w-[560px] flex-col gap-8 sm:gap-9">
           <Hero />
           <ContactBar />
-          {/* Sits 10px under the contact buttons rather than a full section gap. */}
-          <ShareCta className="-mt-[22px] h-12 w-full sm:-mt-[26px]" />
+          {/* Sits 10px under the contact buttons rather than a full section gap.
+              Side by side where both labels fit, stacked on phones. */}
+          <div className="-mt-[22px] grid gap-2 min-[480px]:grid-cols-2 min-[480px]:gap-2.5 sm:-mt-[26px]">
+            <SaveContact className="h-12 w-full" />
+            <ShareCta className="h-12 w-full" />
+          </div>
           <CvPreview />
         </div>
       </main>

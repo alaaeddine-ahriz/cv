@@ -15,7 +15,10 @@
     "email": "Email",
     "write": "Écrire un email",
     "copy": "Copier l’adresse",
-    "copied": "Adresse copiée"
+    "copied": "Adresse copiée",
+    "save": "Ajouter aux contacts",
+    "vcardTitle": "Ingénieur INSA Lyon, étudiant à l’ESSEC",
+    "vcardNote": "Recherche une alternance de 24 mois à partir de janvier 2027, en conseil, transformation digitale ou industrie."
   },
   "Cv": {
     "label": "CV",

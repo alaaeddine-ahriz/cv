@@ -8,6 +8,7 @@ export const profile = {
   displayName: "Alaaeddine AHRIZ",
   email: "alaaeddine.ahriz@essec.edu",
   linkedin: "https://www.linkedin.com/in/alaaeddine-ahriz",
+  phone: "+33 6 10 73 37 22",
   whatsapp: "https://wa.me/33610733722",
   cv: {
     href: "/CV-Alaaeddine-Ahriz.pdf",

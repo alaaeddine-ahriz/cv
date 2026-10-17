@@ -4,7 +4,7 @@
     "shortDescription": "INSA Lyon engineer, ESSEC student. 24-month work-study from January 2027 in consulting, digital transformation or industry."
   },
   "Hero": {
-    "availability": "24-month work-study · from January 2027",
+    "availability": "24-month work-study · Jan 2027",
     "headline": "Engineer from INSA Lyon and student at ESSEC, I’m looking for a work-study position in consulting, digital transformation or industry."
   },
   "Banner": {
@@ -15,7 +15,10 @@
     "email": "Email",
     "write": "Write an email",
     "copy": "Copy address",
-    "copied": "Address copied"
+    "copied": "Address copied",
+    "save": "Add to contacts",
+    "vcardTitle": "INSA Lyon engineer, ESSEC student",
+    "vcardNote": "Looking for a 24-month work-study position from January 2027, in consulting, digital transformation or industry."
   },
   "Cv": {
     "label": "Resume",
