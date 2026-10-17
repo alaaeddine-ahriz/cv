@@ -1,141 +1,101 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
-import { flushSync } from "react-dom";
+import { useState } from "react";
+import { motion } from "motion/react";
+import { Download, ExternalLink } from "lucide-react";
+import Lightbox from "yet-another-react-lightbox";
+import DownloadPlugin from "yet-another-react-lightbox/plugins/download";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/styles.css";
+import { Button } from "@/components/ui/button";
 import { profile } from "@/lib/site";
 
-function ExpandIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-    </svg>
-  );
-}
-
-function DownloadIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
-    </svg>
-  );
-}
-
-function ExternalIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5" />
-    </svg>
-  );
-}
-
-function CloseIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-      <path d="M6 6l12 12M18 6L6 18" />
-    </svg>
-  );
-}
+// Serve the lightbox through Next's image optimizer too, at a couple of
+// widths it allows (see deviceSizes), so phones don't pull the full file.
+const { cv } = profile;
+const imageUrl = (w: number) =>
+  `/_next/image?url=${encodeURIComponent(cv.page.src)}&w=${w}&q=90`;
+const srcSet = [1080, 1920].map((w) => ({
+  src: imageUrl(w),
+  width: Math.min(w, cv.page.width),
+  height: Math.round((Math.min(w, cv.page.width) * cv.page.height) / cv.page.width),
+}));
 
 /**
- * A paper-like preview of the CV's first page, cropped with a fade, that
- * opens a full-screen viewer. Images instead of an embedded PDF: browser PDF
- * viewers bring their own chrome on desktop and barely work on phones.
+ * The CV's first page as a plain sheet. Clicking it opens a lightbox (Yet
+ * Another React Lightbox) with pinch, wheel and double-tap zoom.
  */
 export function CvPreview() {
-  const { cv } = profile;
-  const dialog = useRef<HTMLDialogElement>(null);
-
-  const [zoomed, setZoomed] = useState(false);
-
-  const open = () => dialog.current?.showModal();
-  const close = () => dialog.current?.close();
-
-  // On touch screens, tap the page to read the small print: it doubles in
-  // size and scrolls so the spot under the finger stays put. Tap again to fit
-  // it back. With a mouse the page is already readable at full width.
-  const toggleZoom = (e: React.MouseEvent<HTMLImageElement>) => {
-    const scroller = dialog.current;
-    if (!scroller || !window.matchMedia("(pointer: coarse)").matches) return;
-    const img = e.currentTarget;
-    const before = img.getBoundingClientRect();
-    const fx = (e.clientX - before.left) / before.width;
-    const fy = (e.clientY - before.top) / before.height;
-    flushSync(() => setZoomed((z) => !z));
-    const after = img.getBoundingClientRect();
-    scroller.scrollLeft += after.left + fx * after.width - e.clientX;
-    scroller.scrollTop += after.top + fy * after.height - e.clientY;
-  };
-
-
+  const [open, setOpen] = useState(false);
   const alt = `CV d’${profile.name}`;
 
   return (
-    <>
-      <button type="button" className="cv-card" onClick={open} aria-label="Agrandir le CV">
+    <motion.section
+      aria-label="CV"
+      className="flex flex-col gap-3.5"
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+      transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] }}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label="Agrandir le CV"
+        className="block cursor-pointer overflow-hidden rounded-lg border bg-white shadow-[0_1px_2px_rgb(29_28_26/0.06),0_8px_24px_-8px_rgb(29_28_26/0.14)] outline-none transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_2px_4px_rgb(29_28_26/0.06),0_18px_40px_-12px_rgb(29_28_26/0.22)] focus-visible:ring-[3px] focus-visible:ring-ring/40 active:scale-[0.995]"
+      >
         <Image
           src={cv.page.src}
           width={cv.page.width}
           height={cv.page.height}
           alt={alt}
           sizes="(max-width: 608px) calc(100vw - 48px), 560px"
+          className="block h-auto w-full"
         />
-        <span className="cv-card-fade" aria-hidden="true" />
-        <span className="cv-card-cta">
-          <ExpandIcon />
-          Voir le CV en entier
-        </span>
       </button>
 
-      <div className="cv-actions">
-        <a className="btn-secondary" href={cv.href} download={cv.fileName}>
-          <DownloadIcon />
-          Télécharger
-        </a>
-        <a className="btn-secondary" href={cv.href} target="_blank" rel="noopener">
-          <ExternalIcon />
-          Ouvrir le PDF
-        </a>
+      <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-2.5">
+        <Button asChild variant="outline">
+          <a href={cv.href} download={cv.fileName}>
+            <Download />
+            Télécharger
+          </a>
+        </Button>
+        <Button asChild variant="outline">
+          <a href={cv.href} target="_blank" rel="noopener">
+            <ExternalLink />
+            Ouvrir le PDF
+          </a>
+        </Button>
       </div>
 
-      <dialog
-        ref={dialog}
-        className="viewer"
-        aria-label={alt}
-        data-zoomed={zoomed || undefined}
-        onClose={() => setZoomed(false)}
-        // A click that lands on the dialog itself (not its content) is a
-        // click on the backdrop area around the page.
-        onClick={(e) => e.target === e.currentTarget && close()}
-      >
-        <div className="viewer-bar">
-          <span className="viewer-title">{cv.fileName}</span>
-          <div className="viewer-actions">
-            <a className="viewer-btn" href={cv.href} download={cv.fileName}>
-              <DownloadIcon />
-              <span>Télécharger</span>
-            </a>
-            <a className="viewer-btn" href={cv.href} target="_blank" rel="noopener">
-              <ExternalIcon />
-              <span>Ouvrir le PDF</span>
-            </a>
-            <button type="button" className="viewer-btn viewer-close" onClick={close} aria-label="Fermer">
-              <CloseIcon />
-            </button>
-          </div>
-        </div>
-        <div className="viewer-page" onClick={(e) => e.target === e.currentTarget && close()}>
-          <Image
-            src={cv.page.src}
-            width={cv.page.width}
-            height={cv.page.height}
-            alt={alt}
-            sizes="(max-width: 900px) 200vw, 1654px"
-            quality={90}
-            onClick={toggleZoom}
-          />
-        </div>
-      </dialog>
-    </>
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        plugins={[Zoom, DownloadPlugin]}
+        slides={[
+          {
+            src: imageUrl(1920),
+            alt,
+            width: cv.page.width,
+            height: cv.page.height,
+            srcSet,
+            download: { url: cv.href, filename: cv.fileName },
+          },
+        ]}
+        carousel={{ finite: true, padding: "16px" }}
+        controller={{ closeOnBackdropClick: true }}
+        zoom={{ maxZoomPixelRatio: 2, scrollToZoom: true }}
+        render={{ buttonPrev: () => null, buttonNext: () => null }}
+        labels={{
+          Close: "Fermer",
+          Download: "Télécharger le PDF",
+          "Zoom in": "Zoomer",
+          "Zoom out": "Dézoomer",
+        }}
+        styles={{ container: { backgroundColor: "rgb(20 19 18 / 0.9)" } }}
+      />
+    </motion.section>
   );
 }

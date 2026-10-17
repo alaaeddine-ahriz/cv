@@ -1,8 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Copy, Mail } from "lucide-react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 import { profile } from "@/lib/site";
 
+// Lucide dropped brand marks, so these two come from Simple Icons.
 function LinkedInIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -19,116 +31,52 @@ function WhatsAppIcon() {
   );
 }
 
-function MailIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <rect x="2" y="4" width="20" height="16" rx="2" />
-      <path d="M22 6l-10 7L2 6" />
-    </svg>
-  );
-}
-
-function CopyIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="9" y="9" width="12" height="12" rx="2" />
-      <path d="M5 15H4a1 1 0 01-1-1V4a1 1 0 011-1h10a1 1 0 011 1v1" />
-    </svg>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M5 12l5 5L20 7" />
-    </svg>
-  );
-}
+// Tighter on small phones so three labels still fit on one row.
+const contactButton = "h-12 w-full max-[420px]:gap-1.5 max-[420px]:px-1 max-[420px]:text-sm max-[420px]:[&_svg]:size-4";
 
 /**
  * mailto: does nothing for people on webmail without a mail handler, so the
  * Email button offers to copy the address too.
  */
-function EmailButton() {
-  const [open, setOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const root = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    const onPointer = (e: PointerEvent) => {
-      if (!root.current?.contains(e.target as Node)) setOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    document.addEventListener("pointerdown", onPointer);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("pointerdown", onPointer);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
-
-  useEffect(() => {
-    if (!copied) return;
-    const t = setTimeout(() => setCopied(false), 1800);
-    return () => clearTimeout(t);
-  }, [copied]);
-
+function EmailMenu() {
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(profile.email);
-      setCopied(true);
+      toast.success("Adresse copiée", { description: profile.email });
     } catch {
       window.location.href = `mailto:${profile.email}`;
     }
   };
 
   return (
-    <div className="email-wrap" ref={root}>
-      <button
-        type="button"
-        className="btn-brand email"
-        aria-haspopup="menu"
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-      >
-        <MailIcon />
-        <span>Email</span>
-      </button>
-      {open && (
-        <div className="email-menu" role="menu">
-          <span className="email-address">{profile.email}</span>
-          <a
-            role="menuitem"
-            className="email-item"
-            href={`mailto:${profile.email}`}
-            onClick={() => setOpen(false)}
-          >
-            <MailIcon />
+    <DropdownMenu modal={false}>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ink" className={contactButton}>
+          <Mail />
+          Email
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>{profile.email}</DropdownMenuLabel>
+        <DropdownMenuItem asChild>
+          <a href={`mailto:${profile.email}`}>
+            <Mail />
             Écrire un email
           </a>
-          <button role="menuitem" type="button" className="email-item" onClick={copy}>
-            {copied ? <CheckIcon /> : <CopyIcon />}
-            <span aria-live="polite">{copied ? "Adresse copiée" : "Copier l’adresse"}</span>
-          </button>
-        </div>
-      )}
-    </div>
+        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={copy}>
+          <Copy />
+          Copier l’adresse
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
 /**
  * The three contact buttons, pinned to the top of the viewport once the
  * reader scrolls past them. A zero-height sentinel just above the bar tells
- * us when it is stuck; only then does it get its backdrop.
+ * us when it is stuck; only then does the frosted band appear behind it.
  */
 export function ContactBar() {
   const sentinel = useRef<HTMLDivElement>(null);
@@ -146,32 +94,33 @@ export function ContactBar() {
 
   return (
     <>
-      <div ref={sentinel} className="contact-sentinel" aria-hidden="true" />
+      {/* Margins put the sentinel at the bar's top edge without adding a gap. */}
+      <div ref={sentinel} aria-hidden="true" className="-mt-3 -mb-6 h-0" />
       <nav
-        className="contact-bar reveal d2"
-        data-stuck={stuck || undefined}
         aria-label="Me contacter"
+        data-stuck={stuck || undefined}
+        className={cn(
+          "group/bar sticky top-0 z-40 -my-3 py-3",
+          "animate-in duration-700 fill-mode-both fade-in slide-in-from-bottom-3 [animation-delay:350ms]",
+          // Full-bleed frosted band, faded in only while stuck.
+          "before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:border-b before:border-[#ece9e3] before:bg-background/90 before:opacity-0 before:shadow-[0_6px_20px_-14px_rgb(29_28_26/0.25)] before:backdrop-blur-md before:backdrop-saturate-150 before:transition-opacity before:duration-300 before:content-['']",
+          "data-[stuck]:before:opacity-100",
+        )}
       >
-        <div className="contacts">
-          <a
-            className="btn-brand linkedin"
-            href={profile.linkedin}
-            target="_blank"
-            rel="noopener"
-          >
-            <LinkedInIcon />
-            <span>LinkedIn</span>
-          </a>
-          <a
-            className="btn-brand whatsapp"
-            href={profile.whatsapp}
-            target="_blank"
-            rel="noopener"
-          >
-            <WhatsAppIcon />
-            <span>WhatsApp</span>
-          </a>
-          <EmailButton />
+        <div className="grid grid-cols-3 gap-1.5 min-[421px]:gap-2.5">
+          <Button asChild variant="linkedin" className={contactButton}>
+            <a href={profile.linkedin} target="_blank" rel="noopener">
+              <LinkedInIcon />
+              LinkedIn
+            </a>
+          </Button>
+          <Button asChild variant="whatsapp" className={contactButton}>
+            <a href={profile.whatsapp} target="_blank" rel="noopener">
+              <WhatsAppIcon />
+              WhatsApp
+            </a>
+          </Button>
+          <EmailMenu />
         </div>
       </nav>
     </>

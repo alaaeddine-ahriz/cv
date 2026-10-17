@@ -1,37 +1,39 @@
 import Image from "next/image";
-import { logos, type Logo } from "@/lib/site";
-
-// The track holds four identical sets and slides by -50% (two sets), so the
-// loop is seamless and stays wider than large screens.
-const COPIES = 4;
-
-function Item({ logo, hidden }: { logo: Logo; hidden: boolean }) {
-  return (
-    <li aria-hidden={hidden || undefined}>
-      {logo.src ? (
-        <Image
-          src={logo.src}
-          alt={hidden ? "" : logo.name}
-          width={logo.width}
-          height={logo.height}
-        />
-      ) : (
-        logo.name
-      )}
-    </li>
-  );
-}
+import { Marquee } from "@/components/ui/marquee";
+import { logos } from "@/lib/site";
 
 export function LogoMarquee() {
   return (
-    <div id="top" className="banner" aria-label="Écoles, entreprises et associations">
-      <ul className="marquee">
-        {Array.from({ length: COPIES }, (_, copy) =>
-          logos.map((logo) => (
-            <Item key={`${copy}-${logo.name}`} logo={logo} hidden={copy > 0} />
-          )),
+    <div
+      id="top"
+      aria-label="Écoles, entreprises et associations"
+      className="animate-in border-b border-[#ece9e3] bg-white py-4 duration-700 fade-in sm:py-[18px]"
+    >
+      <Marquee
+        pauseOnHover
+        className="[--duration:45s] [--gap:2.5rem] [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)] sm:[--gap:4rem]"
+      >
+        {logos.map((logo) =>
+          logo.src ? (
+            <Image
+              key={logo.name}
+              src={logo.src}
+              alt={logo.name}
+              width={logo.width}
+              height={logo.height}
+              style={{ height: logo.height }}
+              className="block w-auto max-w-none scale-[0.85] opacity-75 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0 sm:scale-100"
+            />
+          ) : (
+            <span
+              key={logo.name}
+              className="text-[19px] font-semibold tracking-[-0.01em] whitespace-nowrap text-subtle-foreground"
+            >
+              {logo.name}
+            </span>
+          ),
         )}
-      </ul>
+      </Marquee>
     </div>
   );
 }

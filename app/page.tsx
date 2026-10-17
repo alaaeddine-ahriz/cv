@@ -1,7 +1,7 @@
 import { ContactBar } from "@/components/ContactBar";
 import { CvPreview } from "@/components/CvPreview";
+import { Hero } from "@/components/Hero";
 import { LogoMarquee } from "@/components/LogoMarquee";
-import { Reveal } from "@/components/Reveal";
 import { profile, siteUrl } from "@/lib/site";
 
 const personJsonLd = {
@@ -25,24 +25,22 @@ export default function Home() {
       />
       <LogoMarquee />
 
-      <main>
-        <div className="col">
-          <header className="reveal d1">
-            <p className="status">
-              <span className="status-dot" aria-hidden="true" />
-              {profile.availability}
-            </p>
-            <h1>{profile.displayName}</h1>
-            <p className="lead">{profile.headline}</p>
-          </header>
-
+      <main className="relative isolate flex min-h-svh justify-center px-6 pt-10 pb-16 sm:pt-[clamp(48px,10vh,110px)]">
+        {/* Faint dot grid behind the top of the page, fading out downwards. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px] bg-[radial-gradient(#d9d5ce_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_40%,transparent_100%)]"
+        />
+        <div className="flex w-full max-w-[560px] flex-col gap-8 sm:gap-9">
+          <Hero />
           <ContactBar />
-
-          <Reveal as="div" className="cv">
-            <CvPreview />
-          </Reveal>
+          <CvPreview />
         </div>
       </main>
+
+      <footer className="border-t border-[#ece9e3] px-6 py-6 text-center text-sm text-subtle-foreground">
+        © {new Date().getFullYear()} {profile.name}
+      </footer>
     </>
   );
 }
