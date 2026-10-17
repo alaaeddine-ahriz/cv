@@ -51,11 +51,12 @@ export function CvPreview() {
   const open = () => dialog.current?.showModal();
   const close = () => dialog.current?.close();
 
-  // Tap the page to read the small print: it doubles in size and scrolls so
-  // the spot under the finger stays put. Tap again to fit it back.
+  // On touch screens, tap the page to read the small print: it doubles in
+  // size and scrolls so the spot under the finger stays put. Tap again to fit
+  // it back. With a mouse the page is already readable at full width.
   const toggleZoom = (e: React.MouseEvent<HTMLImageElement>) => {
     const scroller = dialog.current;
-    if (!scroller) return;
+    if (!scroller || !window.matchMedia("(pointer: coarse)").matches) return;
     const img = e.currentTarget;
     const before = img.getBoundingClientRect();
     const fx = (e.clientX - before.left) / before.width;
@@ -87,17 +88,13 @@ export function CvPreview() {
       </button>
 
       <div className="cv-actions">
-        <button type="button" className="btn-secondary" onClick={open}>
-          <ExpandIcon />
-          Agrandir
-        </button>
         <a className="btn-secondary" href={cv.href} download={cv.fileName}>
           <DownloadIcon />
           Télécharger
         </a>
         <a className="btn-secondary" href={cv.href} target="_blank" rel="noopener">
           <ExternalIcon />
-          PDF
+          Ouvrir le PDF
         </a>
       </div>
 
@@ -136,7 +133,6 @@ export function CvPreview() {
             sizes="(max-width: 900px) 200vw, 1654px"
             quality={90}
             onClick={toggleZoom}
-            title={zoomed ? "Dézoomer" : "Zoomer"}
           />
         </div>
       </dialog>

@@ -10,10 +10,12 @@ export function Reveal({
   as: Tag = "section",
   className = "",
   children,
+  ...rest
 }: {
   as?: "section" | "div";
   className?: string;
   children: React.ReactNode;
+  "aria-label"?: string;
 }) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
@@ -39,6 +41,7 @@ export function Reveal({
       ref={ref as React.Ref<HTMLDivElement>}
       className={`on-scroll ${className}`}
       data-visible={visible || undefined}
+      {...rest}
     >
       {children}
     </Tag>

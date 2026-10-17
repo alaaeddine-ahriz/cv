@@ -6,7 +6,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: profile.name,
-  description: profile.headline,
+  description: profile.description,
   authors: [{ name: profile.name }],
   alternates: { canonical: "/" },
   openGraph: {

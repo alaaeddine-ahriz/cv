@@ -28,20 +28,29 @@ export default function Home() {
       <main>
         <div className="col">
           <header className="reveal d1">
+            <p className="status">
+              <span className="status-dot" aria-hidden="true" />
+              {profile.availability}
+            </p>
             <h1>{profile.displayName}</h1>
             <p className="lead">{profile.headline}</p>
           </header>
 
           <ContactBar />
 
-          <Reveal className="cv">
-            <h2>Mon CV</h2>
-            <CvPreview />
+          <Reveal className="about" aria-label="En quelques mots">
+            <ul className="facts">
+              {profile.highlights.map((h) => (
+                <li key={h.value}>
+                  <strong>{h.value}</strong>
+                  <span>{h.label}</span>
+                </li>
+              ))}
+            </ul>
           </Reveal>
 
-          <Reveal className="about">
-            <h2>En quelques mots</h2>
-            <p>{profile.about}</p>
+          <Reveal as="div" className="cv">
+            <CvPreview />
           </Reveal>
         </div>
       </main>

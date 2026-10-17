@@ -128,8 +128,7 @@ function EmailButton() {
 /**
  * The three contact buttons, pinned to the top of the viewport once the
  * reader scrolls past them. A zero-height sentinel just above the bar tells
- * us when it is stuck; only then does it get its backdrop, and on wide
- * screens the name on the left, like a navbar.
+ * us when it is stuck; only then does it get its backdrop.
  */
 export function ContactBar() {
   const sentinel = useRef<HTMLDivElement>(null);
@@ -153,14 +152,6 @@ export function ContactBar() {
         data-stuck={stuck || undefined}
         aria-label="Me contacter"
       >
-        <a
-          className="bar-name"
-          href="#top"
-          tabIndex={stuck ? 0 : -1}
-          aria-hidden={!stuck}
-        >
-          {profile.displayName}
-        </a>
         <div className="contacts">
           <a
             className="btn-brand linkedin"

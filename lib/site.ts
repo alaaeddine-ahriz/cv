@@ -6,12 +6,21 @@ export const siteUrl = "https://alaaeddine-ahriz.vercel.app";
 export const profile = {
   name: "Alaaeddine Ahriz",
   displayName: "Alaaeddine AHRIZ",
+  availability: "Alternance de 24 mois · dès janvier 2027",
   headline:
+    "Ingénieur INSA Lyon et étudiant à l’ESSEC, je recherche une alternance en conseil, transformation digitale ou industrie.",
+  // Meta description: the headline plus the dates the badge shows on the page.
+  description:
     "Ingénieur INSA Lyon et étudiant à l’ESSEC. Je recherche une alternance de 24 mois à partir de janvier 2027 en conseil, transformation digitale ou industrie.",
   shortHeadline:
     "Ingénieur INSA Lyon, étudiant à l’ESSEC. Alternance de 24 mois dès janvier 2027 en conseil, transformation digitale ou industrie.",
-  about:
-    "J’ai passé trois ans en apprentissage chez CGI, dont huit mois comme Product Owner pour ENEDIS. Avant l’ESSEC, j’ai étudié à l’INSA Lyon et fait un semestre d’échange au KAIST, en Corée du Sud. Je parle arabe, français, anglais et espagnol.",
+  /** Facts a recruiter can take in at a glance. */
+  highlights: [
+    { value: "3 ans", label: "d’apprentissage chez CGI" },
+    { value: "8 mois", label: "Product Owner pour ENEDIS" },
+    { value: "KAIST", label: "semestre d’échange en Corée du Sud" },
+    { value: "4 langues", label: "arabe, français, anglais, espagnol" },
+  ],
   email: "alaaeddine.ahriz@essec.edu",
   linkedin: "https://www.linkedin.com/in/alaaeddine-ahriz",
   whatsapp: "https://wa.me/33610733722",
