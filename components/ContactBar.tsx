@@ -16,8 +16,9 @@ import {
 import { cn } from "@/lib/utils";
 import { profile } from "@/lib/site";
 
-// Tighter on small phones so three labels still fit on one row.
-const contactButton = "h-12 w-full max-[420px]:gap-1.5 max-[420px]:px-1 max-[420px]:text-sm max-[420px]:[&_svg]:size-4";
+// Same size as the page's other buttons; on small phones the padding
+// tightens so three labels still fit on one row.
+const contactButton = "w-full max-[420px]:gap-1 max-[420px]:px-1";
 
 /**
  * mailto: does nothing for people on webmail without a mail handler, so the
@@ -38,7 +39,7 @@ function EmailMenu() {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ink" className={contactButton}>
+        <Button variant="ink" size="md" className={contactButton}>
           <Mail />
           {t("email")}
         </Button>
@@ -96,13 +97,13 @@ export function ContactBar() {
         )}
       >
         <div className="grid grid-cols-3 gap-1.5 min-[421px]:gap-2.5">
-          <Button asChild variant="linkedin" className={contactButton}>
+          <Button asChild variant="linkedin" size="md" className={contactButton}>
             <a href={profile.linkedin} target="_blank" rel="noopener">
               <LinkedInIcon />
               LinkedIn
             </a>
           </Button>
-          <Button asChild variant="whatsapp" className={contactButton}>
+          <Button asChild variant="whatsapp" size="md" className={contactButton}>
             <a href={profile.whatsapp} target="_blank" rel="noopener">
               <WhatsAppIcon />
               WhatsApp

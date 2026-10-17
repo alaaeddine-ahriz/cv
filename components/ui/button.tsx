@@ -14,11 +14,9 @@ const buttonVariants = cva(
           "border border-input bg-card text-foreground shadow-xs hover:border-foreground [&_svg]:text-muted-foreground",
         ghost:
           "font-medium text-muted-foreground hover:bg-accent hover:text-foreground data-[state=open]:bg-accent data-[state=open]:text-foreground",
-        linkedin:
-          "bg-linkedin text-white hover:bg-linkedin-hover hover:shadow-[0_6px_16px_-8px] hover:shadow-linkedin",
-        whatsapp:
-          "bg-whatsapp text-white hover:bg-whatsapp-hover hover:shadow-[0_6px_16px_-8px] hover:shadow-whatsapp",
-        ink: "bg-ink-button text-white hover:bg-black hover:shadow-[0_6px_16px_-8px] hover:shadow-black/60 data-[state=open]:bg-black",
+        linkedin: "border border-black/10 bg-linkedin text-white shadow-xs hover:bg-linkedin-hover",
+        whatsapp: "border border-black/10 bg-whatsapp text-white shadow-xs hover:bg-whatsapp-hover",
+        ink: "border border-black/10 bg-ink-button text-white shadow-xs hover:bg-black data-[state=open]:bg-black",
       },
       size: {
         default: "h-11 px-4 text-[15px]",
