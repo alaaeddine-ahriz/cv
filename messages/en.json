@@ -1,0 +1,43 @@
+{
+  "Meta": {
+    "description": "INSA Lyon engineer and ESSEC student, looking for a 24-month work-study position from January 2027 in consulting, digital transformation or industry.",
+    "shortDescription": "INSA Lyon engineer, ESSEC student. 24-month work-study from January 2027 in consulting, digital transformation or industry."
+  },
+  "Hero": {
+    "availability": "24-month work-study · from January 2027",
+    "headline": "Engineer from INSA Lyon and student at ESSEC, I’m looking for a work-study position in consulting, digital transformation or industry."
+  },
+  "Language": {
+    "label": "Language",
+    "fr": "Français",
+    "en": "English"
+  },
+  "Banner": {
+    "label": "Schools, companies and student organisations"
+  },
+  "Contact": {
+    "label": "Contact me",
+    "email": "Email",
+    "write": "Write an email",
+    "copy": "Copy address",
+    "copied": "Address copied"
+  },
+  "Cv": {
+    "label": "Resume",
+    "alt": "Alaaeddine Ahriz’s resume",
+    "open": "Enlarge the resume",
+    "download": "Download",
+    "openPdf": "Open PDF",
+    "note": "The resume is in French."
+  },
+  "Viewer": {
+    "close": "Close",
+    "download": "Download the PDF",
+    "openPdf": "Open the PDF in a new tab",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out"
+  },
+  "Footer": {
+    "rights": "© {year} Alaaeddine Ahriz"
+  }
+}

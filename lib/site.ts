@@ -1,19 +1,11 @@
-// Everything the page says lives here, so new sections or languages don't
-// mean digging through markup.
+// Facts that don't change with the language: links, files, logos. The
+// wording itself is in messages/fr.json and messages/en.json.
 
 export const siteUrl = "https://alaaeddine-ahriz.vercel.app";
 
 export const profile = {
   name: "Alaaeddine Ahriz",
   displayName: "Alaaeddine AHRIZ",
-  availability: "Alternance de 24 mois · dès janvier 2027",
-  headline:
-    "Ingénieur INSA Lyon et étudiant à l’ESSEC, je recherche une alternance en conseil, transformation digitale ou industrie.",
-  // Meta description: the headline plus the dates the badge shows on the page.
-  description:
-    "Ingénieur INSA Lyon et étudiant à l’ESSEC. Je recherche une alternance de 24 mois à partir de janvier 2027 en conseil, transformation digitale ou industrie.",
-  shortHeadline:
-    "Ingénieur INSA Lyon, étudiant à l’ESSEC. Alternance de 24 mois dès janvier 2027 en conseil, transformation digitale ou industrie.",
   email: "alaaeddine.ahriz@essec.edu",
   linkedin: "https://www.linkedin.com/in/alaaeddine-ahriz",
   whatsapp: "https://wa.me/33610733722",

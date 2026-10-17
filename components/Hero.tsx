@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "motion/react";
+import { useTranslations } from "next-intl";
 import { profile } from "@/lib/site";
 
 // Each line comes in from a soft blur, one after the other.
@@ -19,6 +20,8 @@ const item: Variants = {
 };
 
 export function Hero() {
+  const t = useTranslations("Hero");
+
   return (
     <motion.header
       className="flex flex-col gap-3.5"
@@ -30,11 +33,11 @@ export function Hero() {
         variants={item}
         className="mb-1 inline-flex items-center gap-2 self-start rounded-full border bg-card py-1.5 pr-3 pl-2.5 text-sm font-medium text-muted-foreground shadow-xs"
       >
-        <span className="relative flex size-2" aria-hidden="true">
+        <span className="relative flex size-2 shrink-0" aria-hidden="true">
           <span className="absolute inline-flex size-full animate-ping rounded-full bg-whatsapp opacity-60 motion-reduce:animate-none" />
           <span className="relative inline-flex size-2 rounded-full bg-whatsapp" />
         </span>
-        {profile.availability}
+        {t("availability")}
       </motion.p>
 
       <motion.h1
@@ -48,7 +51,7 @@ export function Hero() {
         variants={item}
         className="text-[17px] leading-[1.55] text-pretty text-muted-foreground sm:text-lg"
       >
-        {profile.headline}
+        {t("headline")}
       </motion.p>
     </motion.header>
   );

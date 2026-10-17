@@ -88,3 +88,64 @@
     html { scroll-behavior: auto; }
   }
 }
+
+/* CV viewer (Yet Another React Lightbox). Its default controls are bare
+   icons with a drop shadow, which turn into grey smudges over the white
+   page. Here they live together in one frosted pill at the bottom, within
+   thumb reach on phones, and the page is laid out above it. */
+.cv-viewer {
+  --yarl__color_backdrop: rgb(20 19 18 / 0.92);
+  --yarl__button_filter: none;
+  --yarl__button_padding: 0;
+  --yarl__icon_size: 20px;
+  --yarl__color_button: rgb(255 255 255 / 0.9);
+  --yarl__color_button_active: #fff;
+  --yarl__color_button_disabled: rgb(255 255 255 / 0.3);
+}
+.cv-viewer .yarl__container {
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  /* Room for the pill, so the page never sits under it. */
+  padding-bottom: calc(76px + env(safe-area-inset-bottom));
+}
+.cv-viewer .yarl__toolbar {
+  top: auto;
+  right: auto;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  left: 50%;
+  translate: -50% 0;
+  gap: 2px;
+  padding: 5px;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 999px;
+  background: rgb(38 37 35 / 0.82);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.5);
+}
+.cv-viewer .yarl__button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+.cv-viewer .yarl__button:hover:not(:disabled) { background-color: rgb(255 255 255 / 0.12); }
+.cv-viewer .yarl__button:active:not(:disabled) { transform: scale(0.92); }
+.cv-viewer .yarl__button:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
+.cv-viewer .yarl__icon { stroke-width: 1.75; }
+/* Close sits apart from the actions, after a thin divider. */
+.cv-viewer .yarl__toolbar > :last-child {
+  margin-left: 4px;
+  position: relative;
+}
+.cv-viewer .yarl__toolbar > :last-child::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 10px;
+  bottom: 10px;
+  width: 1px;
+  background: rgb(255 255 255 / 0.15);
+}

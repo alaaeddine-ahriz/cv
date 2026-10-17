@@ -8,7 +8,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     // Motion animations follow the visitor's reduced-motion setting.
     <MotionConfig reducedMotion="user">
       {children}
-      <Toaster position="bottom-center" />
+      <Toaster position="top-center" />
     </MotionConfig>
   );
 }

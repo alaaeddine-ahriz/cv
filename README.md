@@ -13,6 +13,7 @@ Next.js 16 (App Router, TypeScript), rendu statique, déployé sur Vercel.
 | [Sonner](https://sonner.emilkowal.ski) | Toast « Adresse copiée » |
 | [Yet Another React Lightbox](https://yet-another-react-lightbox.com) | Visionneuse du CV avec zoom et téléchargement |
 | [Lucide](https://lucide.dev) | Icônes (LinkedIn et WhatsApp viennent de Simple Icons) |
+| [next-intl](https://next-intl.dev) | Français et anglais |
 
 `components.json` est la config shadcn : `npx shadcn@latest add <composant>` ajoute d'autres composants au même endroit.
 
@@ -24,19 +25,31 @@ npm run dev        # http://localhost:3000
 npm run build      # build de production (vérifie aussi les types)
 ```
 
+## Langues
+
+Le français est à `/`, l'anglais à `/en`. Au premier passage sur `/`, un navigateur réglé en anglais est envoyé vers `/en` ; ensuite le sélecteur FR / EN mémorise le choix (cookie `NEXT_LOCALE`). Les deux versions sont générées en statique.
+
+- Les textes sont dans `messages/fr.json` et `messages/en.json` (mêmes clés des deux côtés).
+- La config des langues est dans `i18n/routing.ts`, la redirection dans `proxy.ts`.
+- Pour une troisième langue : l'ajouter à `locales` dans `i18n/routing.ts` et créer `messages/<code>.json`.
+
+Le CV n'existe qu'en français ; la version anglaise le signale sous les boutons (`Cv.note`).
+
 ## Où modifier quoi
 
 | Quoi | Où |
 |---|---|
-| Textes, badge de disponibilité, liens de contact, CV | `lib/site.ts` (`profile`) |
+| Textes (badge, phrase d'accroche, boutons…) | `messages/fr.json`, `messages/en.json` |
+| Liens de contact, fichiers du CV | `lib/site.ts` (`profile`) |
 | Logos du bandeau | `lib/site.ts` (`logos`) + fichiers dans `public/logos/` |
-| Mise en page | `app/page.tsx` |
+| Mise en page | `app/[locale]/page.tsx` |
+| Sélecteur de langue | `components/LanguageSwitcher.tsx` |
 | Titre et badge animés | `components/Hero.tsx` |
 | Bandeau défilant | `components/LogoMarquee.tsx` |
 | Barre de contact collante, menu Email | `components/ContactBar.tsx` |
 | Aperçu du CV et visionneuse | `components/CvPreview.tsx` |
-| Couleurs, rayons, police | `app/globals.css` |
-| SEO, Open Graph | `app/layout.tsx` (l'URL du site est `siteUrl` dans `lib/site.ts`) |
+| Couleurs, rayons, police, style de la visionneuse | `app/globals.css` |
+| SEO, Open Graph, hreflang | `app/[locale]/layout.tsx` (l'URL du site est `siteUrl` dans `lib/site.ts`) |
 
 ## Logos
 

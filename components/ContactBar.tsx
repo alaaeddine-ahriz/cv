@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Copy, Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -39,10 +40,12 @@ const contactButton = "h-12 w-full max-[420px]:gap-1.5 max-[420px]:px-1 max-[420
  * Email button offers to copy the address too.
  */
 function EmailMenu() {
+  const t = useTranslations("Contact");
+
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(profile.email);
-      toast.success("Adresse copiée", { description: profile.email });
+      toast.success(t("copied"), { description: profile.email });
     } catch {
       window.location.href = `mailto:${profile.email}`;
     }
@@ -53,7 +56,7 @@ function EmailMenu() {
       <DropdownMenuTrigger asChild>
         <Button variant="ink" className={contactButton}>
           <Mail />
-          Email
+          {t("email")}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -61,12 +64,12 @@ function EmailMenu() {
         <DropdownMenuItem asChild>
           <a href={`mailto:${profile.email}`}>
             <Mail />
-            Écrire un email
+            {t("write")}
           </a>
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={copy}>
           <Copy />
-          Copier l’adresse
+          {t("copy")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -79,6 +82,7 @@ function EmailMenu() {
  * us when it is stuck; only then does the frosted band appear behind it.
  */
 export function ContactBar() {
+  const t = useTranslations("Contact");
   const sentinel = useRef<HTMLDivElement>(null);
   const [stuck, setStuck] = useState(false);
 
@@ -97,7 +101,7 @@ export function ContactBar() {
       {/* Margins put the sentinel at the bar's top edge without adding a gap. */}
       <div ref={sentinel} aria-hidden="true" className="-mt-3 -mb-6 h-0" />
       <nav
-        aria-label="Me contacter"
+        aria-label={t("label")}
         data-stuck={stuck || undefined}
         className={cn(
           "group/bar sticky top-0 z-40 -my-3 py-3",

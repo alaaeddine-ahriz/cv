@@ -1,12 +1,15 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Marquee } from "@/components/ui/marquee";
 import { logos } from "@/lib/site";
 
 export function LogoMarquee() {
+  const t = useTranslations("Banner");
+
   return (
     <div
       id="top"
-      aria-label="Écoles, entreprises et associations"
+      aria-label={t("label")}
       className="animate-in border-b border-[#ece9e3] bg-white py-4 duration-700 fade-in sm:py-[18px]"
     >
       <Marquee

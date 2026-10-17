@@ -1,0 +1,43 @@
+{
+  "Meta": {
+    "description": "Ingénieur INSA Lyon et étudiant à l’ESSEC. Je recherche une alternance de 24 mois à partir de janvier 2027 en conseil, transformation digitale ou industrie.",
+    "shortDescription": "Ingénieur INSA Lyon, étudiant à l’ESSEC. Alternance de 24 mois dès janvier 2027 en conseil, transformation digitale ou industrie."
+  },
+  "Hero": {
+    "availability": "Alternance de 24 mois · dès janvier 2027",
+    "headline": "Ingénieur INSA Lyon et étudiant à l’ESSEC, je recherche une alternance en conseil, transformation digitale ou industrie."
+  },
+  "Language": {
+    "label": "Langue",
+    "fr": "Français",
+    "en": "English"
+  },
+  "Banner": {
+    "label": "Écoles, entreprises et associations"
+  },
+  "Contact": {
+    "label": "Me contacter",
+    "email": "Email",
+    "write": "Écrire un email",
+    "copy": "Copier l’adresse",
+    "copied": "Adresse copiée"
+  },
+  "Cv": {
+    "label": "CV",
+    "alt": "CV d’Alaaeddine Ahriz",
+    "open": "Agrandir le CV",
+    "download": "Télécharger",
+    "openPdf": "Ouvrir le PDF",
+    "note": ""
+  },
+  "Viewer": {
+    "close": "Fermer",
+    "download": "Télécharger le PDF",
+    "openPdf": "Ouvrir le PDF dans un onglet",
+    "zoomIn": "Zoomer",
+    "zoomOut": "Dézoomer"
+  },
+  "Footer": {
+    "rights": "© {year} Alaaeddine Ahriz"
+  }
+}
