@@ -38,17 +38,6 @@ export default function Home() {
 
           <ContactBar />
 
-          <Reveal className="about" aria-label="En quelques mots">
-            <ul className="facts">
-              {profile.highlights.map((h) => (
-                <li key={h.value}>
-                  <strong>{h.value}</strong>
-                  <span>{h.label}</span>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-
           <Reveal as="div" className="cv">
             <CvPreview />
           </Reveal>

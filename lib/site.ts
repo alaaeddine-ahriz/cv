@@ -14,13 +14,6 @@ export const profile = {
     "Ingénieur INSA Lyon et étudiant à l’ESSEC. Je recherche une alternance de 24 mois à partir de janvier 2027 en conseil, transformation digitale ou industrie.",
   shortHeadline:
     "Ingénieur INSA Lyon, étudiant à l’ESSEC. Alternance de 24 mois dès janvier 2027 en conseil, transformation digitale ou industrie.",
-  /** Facts a recruiter can take in at a glance. */
-  highlights: [
-    { value: "3 ans", label: "d’apprentissage chez CGI" },
-    { value: "8 mois", label: "Product Owner pour ENEDIS" },
-    { value: "KAIST", label: "semestre d’échange en Corée du Sud" },
-    { value: "4 langues", label: "arabe, français, anglais, espagnol" },
-  ],
   email: "alaaeddine.ahriz@essec.edu",
   linkedin: "https://www.linkedin.com/in/alaaeddine-ahriz",
   whatsapp: "https://wa.me/33610733722",

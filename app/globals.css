@@ -442,37 +442,6 @@ h2 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
 .viewer[data-zoomed] .viewer-page img { width: min(1654px, 200vw); }
 @starting-style { .viewer[open] .viewer-page img { transform: translateY(16px) scale(.98); } }
 
-/* ---------- Facts ---------- */
-.facts {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.facts li {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 16px 18px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: #fff;
-}
-.facts strong {
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-}
-.facts span {
-  font-size: 15px;
-  line-height: 1.4;
-  color: var(--muted);
-  text-wrap: pretty;
-}
-
 /* ---------- Phones ---------- */
 @media (max-width: 600px) {
   :root { --marquee-gap: 40px; }
@@ -482,9 +451,6 @@ h2 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
   .col { gap: 32px; }
   .lead { font-size: 17px; }
   .cv-card { max-height: 400px; }
-  .facts li { padding: 14px; }
-  .facts strong { font-size: 21px; }
-  .facts span { font-size: 14px; }
 
   /* Three equal buttons read better than a wrapped row on a phone. */
   .cv-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }

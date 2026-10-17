@@ -16,7 +16,7 @@ npm run build      # build de production (vérifie aussi les types)
 
 | Quoi | Où |
 |---|---|
-| Textes, badge de disponibilité, chiffres clés, liens de contact, CV | `lib/site.ts` (`profile`) |
+| Textes, badge de disponibilité, liens de contact, CV | `lib/site.ts` (`profile`) |
 | Logos du bandeau | `lib/site.ts` (`logos`) + fichiers dans `public/logos/` |
 | Mise en page | `app/page.tsx` |
 | Bandeau défilant | `components/LogoMarquee.tsx` |
