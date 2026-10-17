@@ -5,7 +5,7 @@ import { ContactBar } from "@/components/ContactBar";
 import { CvPreview } from "@/components/CvPreview";
 import { Hero } from "@/components/Hero";
 import { LogoMarquee } from "@/components/LogoMarquee";
-import { ShareButton, ShareCard } from "@/components/ShareMenu";
+import { ShareCta } from "@/components/ShareMenu";
 import { profile, siteUrl } from "@/lib/site";
 
 const personJsonLd = {
@@ -33,20 +33,18 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
       />
       <LogoMarquee />
 
-      <main className="relative isolate flex min-h-svh justify-center px-6 pt-16 pb-16 sm:pt-[clamp(48px,10vh,110px)]">
+      <main className="relative isolate flex min-h-svh justify-center px-6 pt-10 pb-16 sm:pt-[clamp(48px,10vh,110px)]">
         {/* Faint dot grid behind the top of the page, fading out downwards. */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px] bg-[radial-gradient(#d9d5ce_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_40%,transparent_100%)]"
         />
-        <div className="absolute top-3 right-4 sm:top-5 sm:right-6">
-          <ShareButton />
-        </div>
         <div className="flex w-full max-w-[560px] flex-col gap-8 sm:gap-9">
           <Hero />
           <ContactBar />
+          {/* Sits 10px under the contact buttons rather than a full section gap. */}
+          <ShareCta className="-mt-[22px] h-12 w-full sm:-mt-[26px]" />
           <CvPreview />
-          <ShareCard />
         </div>
       </main>
 
