@@ -26,7 +26,7 @@ const srcSet = [1080, 1920].map((w) => ({
 /**
  * The CV's first page as a plain sheet. Clicking it opens a lightbox (Yet
  * Another React Lightbox) with pinch, wheel and double-tap zoom. Its controls
- * sit together in one frosted pill at the bottom (see .cv-viewer in
+ * sit together in one frosted pill at the top (see .cv-viewer in
  * globals.css) instead of shadowed icons floating over the page.
  */
 export function CvPreview() {

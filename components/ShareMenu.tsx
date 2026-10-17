@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Copy, Link2, Mail, Share2 } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { LinkedInIcon, WhatsAppIcon } from "@/components/icons";
 import {
@@ -12,16 +12,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { routing } from "@/i18n/routing";
 
-/** The page's own address, in the reader's language, on whatever domain it's served from. */
+/**
+ * The site's root on whatever domain it's served from. Always "/", not
+ * "/en": the person receiving it lands in their own browser's language.
+ */
 function useProfileUrl() {
-  const locale = useLocale();
   const [url, setUrl] = useState("");
-  useEffect(() => {
-    const path = locale === routing.defaultLocale ? "/" : `/${locale}`;
-    setUrl(new URL(path, window.location.origin).toString());
-  }, [locale]);
+  useEffect(() => setUrl(new URL("/", window.location.origin).toString()), []);
   return url;
 }
 
@@ -139,7 +137,7 @@ export function ShareCard() {
   );
 }
 
-/** Compact share button for the top of the page, next to the language switch. */
+/** Compact share button for the top corner of the page. */
 export function ShareButton() {
   const t = useTranslations("Share");
   return (

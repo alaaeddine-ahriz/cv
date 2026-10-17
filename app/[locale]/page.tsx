@@ -4,7 +4,6 @@ import { use } from "react";
 import { ContactBar } from "@/components/ContactBar";
 import { CvPreview } from "@/components/CvPreview";
 import { Hero } from "@/components/Hero";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { LogoMarquee } from "@/components/LogoMarquee";
 import { ShareButton, ShareCard } from "@/components/ShareMenu";
 import { profile, siteUrl } from "@/lib/site";
@@ -40,9 +39,8 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px] bg-[radial-gradient(#d9d5ce_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_40%,transparent_100%)]"
         />
-        <div className="absolute top-3 right-4 flex items-center gap-2 sm:top-5 sm:right-6">
+        <div className="absolute top-3 right-4 sm:top-5 sm:right-6">
           <ShareButton />
-          <LanguageSwitcher />
         </div>
         <div className="flex w-full max-w-[560px] flex-col gap-8 sm:gap-9">
           <Hero />

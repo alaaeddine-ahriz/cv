@@ -91,8 +91,7 @@
 
 /* CV viewer (Yet Another React Lightbox). Its default controls are bare
    icons with a drop shadow, which turn into grey smudges over the white
-   page. Here they live together in one frosted pill at the bottom, within
-   thumb reach on phones, and the page is laid out above it. */
+   page. Here they live together in one frosted pill floating at the top. */
 .cv-viewer {
   --yarl__color_backdrop: rgb(20 19 18 / 0.92);
   --yarl__button_filter: none;
@@ -105,13 +104,10 @@
 .cv-viewer .yarl__container {
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
-  /* Room for the pill, so the page never sits under it. */
-  padding-bottom: calc(76px + env(safe-area-inset-bottom));
 }
 .cv-viewer .yarl__toolbar {
-  top: auto;
+  top: calc(12px + env(safe-area-inset-top));
   right: auto;
-  bottom: calc(16px + env(safe-area-inset-bottom));
   left: 50%;
   translate: -50% 0;
   gap: 2px;
@@ -122,6 +118,7 @@
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
   backdrop-filter: blur(16px) saturate(1.4);
   box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.5);
+  z-index: 1;
 }
 .cv-viewer .yarl__button {
   display: grid;

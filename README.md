@@ -27,7 +27,7 @@ npm run build      # build de production (vérifie aussi les types)
 
 ## Langues
 
-Le français est à `/`, l'anglais à `/en`. Au premier passage sur `/`, un navigateur réglé en anglais est envoyé vers `/en` ; ensuite le sélecteur FR / EN mémorise le choix (cookie `NEXT_LOCALE`). Les deux versions sont générées en statique.
+Le français est à `/`, l'anglais à `/en`. Il n'y a pas de sélecteur : à chaque visite sur `/`, un navigateur réglé en anglais est envoyé vers `/en`, tous les autres restent en français (pas de cookie, donc rien ne « colle »). Les deux versions sont générées en statique. Le lien partagé pointe toujours vers `/`, pour que la personne qui le reçoit tombe dans sa propre langue.
 
 - Les textes sont dans `messages/fr.json` et `messages/en.json` (mêmes clés des deux côtés).
 - La config des langues est dans `i18n/routing.ts`, la redirection dans `proxy.ts`.
@@ -43,7 +43,6 @@ Le CV n'existe qu'en français ; la version anglaise le signale sous les boutons
 | Liens de contact, fichiers du CV | `lib/site.ts` (`profile`) |
 | Logos du bandeau | `lib/site.ts` (`logos`) + fichiers dans `public/logos/` |
 | Mise en page | `app/[locale]/page.tsx` |
-| Sélecteur de langue | `components/LanguageSwitcher.tsx` |
 | Titre et badge animés | `components/Hero.tsx` |
 | Bandeau défilant | `components/LogoMarquee.tsx` |
 | Barre de contact collante, menu Email | `components/ContactBar.tsx` |
