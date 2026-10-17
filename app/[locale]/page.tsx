@@ -43,10 +43,11 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
         <div className="flex w-full max-w-[560px] flex-col gap-8 sm:gap-9">
           <Hero />
           <ContactBar />
-          {/* Secondary actions: quiet, on one line, just under the contacts. */}
-          <div className="-mt-[26px] flex flex-wrap justify-center gap-1 sm:-mt-[30px]">
-            <SaveContact />
-            <ShareCta />
+          {/* Secondary actions: outlined and shorter than the contacts, one row,
+              each growing from its own label on phones, equal halves above. */}
+          <div className="-mt-[22px] flex gap-2 sm:-mt-[26px] sm:gap-2.5">
+            <SaveContact className="grow sm:basis-0" />
+            <ShareCta className="grow sm:basis-0" />
           </div>
           <CvPreview />
         </div>

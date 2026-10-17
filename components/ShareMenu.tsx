@@ -41,8 +41,8 @@ function usePrefersNativeShare() {
 
 /**
  * "Share this profile": lets a visitor forward the profile (think: a CEO
- * sending it to their HR director) with a message already written. A quiet
- * button under the contact buttons: secondary to contacting, but in reach.
+ * sending it to their HR director) with a message already written. An
+ * outlined button under the contact buttons: secondary to contacting.
  */
 export function ShareCta({ className }: { className?: string }) {
   const t = useTranslations("Share");
@@ -76,7 +76,7 @@ export function ShareCta({ className }: { className?: string }) {
 
   if (native) {
     return (
-      <Button variant="ghost" size="sm" className={className} onClick={shareNatively}>
+      <Button variant="outline" size="md" className={className} onClick={shareNatively}>
         <Share2 />
         {t("button")}
       </Button>
@@ -86,7 +86,7 @@ export function ShareCta({ className }: { className?: string }) {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className={className}>
+        <Button variant="outline" size="md" className={className}>
           <Share2 />
           {t("button")}
         </Button>
