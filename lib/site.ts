@@ -4,8 +4,8 @@
 export const siteUrl = "https://alaaeddine-ahriz.vercel.app";
 
 export const profile = {
-  name: "Alaaeddine Ahriz",
-  displayName: "Alaaeddine AHRIZ",
+  // Family name in capitals, the French convention, everywhere it is shown.
+  name: "Alaaeddine AHRIZ",
   email: "alaaeddine.ahriz@essec.edu",
   linkedin: "https://www.linkedin.com/in/alaaeddine-ahriz",
   phone: "+33 6 10 73 37 22",

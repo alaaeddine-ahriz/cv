@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: t("shortDescription"),
       url: path,
       firstName: "Alaaeddine",
-      lastName: "Ahriz",
+      lastName: "AHRIZ",
       images: [{ url: "/og.jpg", width: 1200, height: 630 }],
     },
     twitter: {

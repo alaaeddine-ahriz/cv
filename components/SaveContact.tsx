@@ -10,7 +10,7 @@ export function SaveContact({ className }: { className?: string }) {
   const t = useTranslations("Contact");
   const locale = useLocale();
   return (
-    <Button asChild variant="outline" size="lg" className={className}>
+    <Button asChild variant="ghost" size="sm" className={className}>
       <a href={`/contact.vcf?lang=${locale}`} download="Alaaeddine-Ahriz.vcf">
         <UserPlus />
         {t("save")}

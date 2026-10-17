@@ -43,11 +43,10 @@ export default function Home({ params }: { params: Promise<{ locale: string }> }
         <div className="flex w-full max-w-[560px] flex-col gap-8 sm:gap-9">
           <Hero />
           <ContactBar />
-          {/* Sits 10px under the contact buttons rather than a full section gap.
-              Side by side where both labels fit, stacked on phones. */}
-          <div className="-mt-[22px] grid gap-2 min-[480px]:grid-cols-2 min-[480px]:gap-2.5 sm:-mt-[26px]">
-            <SaveContact className="h-12 w-full" />
-            <ShareCta className="h-12 w-full" />
+          {/* Secondary actions: quiet, on one line, just under the contacts. */}
+          <div className="-mt-[26px] flex flex-wrap justify-center gap-1 sm:-mt-[30px]">
+            <SaveContact />
+            <ShareCta />
           </div>
           <CvPreview />
         </div>

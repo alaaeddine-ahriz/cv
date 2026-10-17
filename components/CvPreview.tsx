@@ -59,15 +59,15 @@ export function CvPreview() {
         />
       </button>
 
-      <div className="flex flex-col gap-2">
-        <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-2.5">
-          <Button asChild variant="outline">
+      <div className="-mt-1.5 flex flex-col items-center gap-1">
+        <div className="flex flex-wrap justify-center gap-1">
+          <Button asChild variant="ghost" size="sm">
             <a href={cv.href} download={cv.fileName}>
               <Download />
               {t("download")}
             </a>
           </Button>
-          <Button asChild variant="outline">
+          <Button asChild variant="ghost" size="sm">
             <a href={cv.href} target="_blank" rel="noopener">
               <ExternalLink />
               {t("openPdf")}

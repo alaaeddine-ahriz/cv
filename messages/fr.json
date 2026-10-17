@@ -22,7 +22,7 @@
   },
   "Cv": {
     "label": "CV",
-    "alt": "CV d’Alaaeddine Ahriz",
+    "alt": "CV d’Alaaeddine AHRIZ",
     "open": "Agrandir le CV",
     "download": "Télécharger",
     "openPdf": "Ouvrir le PDF",
@@ -36,7 +36,7 @@
     "zoomOut": "Dézoomer"
   },
   "Share": {
-    "button": "Partager ce profil",
+    "button": "Partager",
     "menuLabel": "Partager via",
     "email": "Par email",
     "whatsapp": "Par WhatsApp",
@@ -46,11 +46,11 @@
     "copiedMessage": "Message copié",
     "copiedMessageHint": "Collez-le dans Teams, Slack ou un email.",
     "copiedLink": "Lien copié",
-    "subject": "Profil à regarder : Alaaeddine Ahriz, alternance dès janvier 2027",
-    "body": "Bonjour,\n\nVoici le profil d’Alaaeddine Ahriz, ingénieur INSA Lyon et étudiant à l’ESSEC. Il recherche une alternance de 24 mois à partir de janvier 2027, en conseil, transformation digitale ou industrie.\n\nIl a fait trois ans d’apprentissage chez CGI, dont huit mois comme Product Owner pour ENEDIS.\n\nProfil et CV : {url}\n\nÀ regarder pour nos recrutements en alternance.",
-    "short": "Profil à regarder pour une alternance dès janvier 2027 : Alaaeddine Ahriz, ingénieur INSA Lyon et étudiant à l’ESSEC (3 ans chez CGI, Product Owner pour ENEDIS). Profil et CV : {url}"
+    "subject": "Profil à regarder : Alaaeddine AHRIZ, alternance dès janvier 2027",
+    "body": "Bonjour,\n\nVoici le profil d’Alaaeddine AHRIZ, ingénieur INSA Lyon et étudiant à l’ESSEC. Il recherche une alternance de 24 mois à partir de janvier 2027, en conseil, transformation digitale ou industrie.\n\nIl a fait trois ans d’apprentissage chez CGI, dont huit mois comme Product Owner pour ENEDIS.\n\nProfil et CV : {url}\n\nÀ regarder pour nos recrutements en alternance.",
+    "short": "Profil à regarder pour une alternance dès janvier 2027 : Alaaeddine AHRIZ, ingénieur INSA Lyon et étudiant à l’ESSEC (3 ans chez CGI, Product Owner pour ENEDIS). Profil et CV : {url}"
   },
   "Footer": {
-    "rights": "© {year} Alaaeddine Ahriz"
+    "rights": "© {year} Alaaeddine AHRIZ"
   }
 }

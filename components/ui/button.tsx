@@ -12,7 +12,8 @@ const buttonVariants = cva(
         default: "bg-primary text-primary-foreground hover:bg-black",
         outline:
           "border border-input bg-card text-foreground shadow-xs hover:border-foreground [&_svg]:text-muted-foreground",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghost:
+          "font-medium text-muted-foreground hover:bg-accent hover:text-foreground data-[state=open]:bg-accent data-[state=open]:text-foreground",
         linkedin:
           "bg-linkedin text-white hover:bg-linkedin-hover hover:shadow-[0_6px_16px_-8px] hover:shadow-linkedin",
         whatsapp:
@@ -22,7 +23,7 @@ const buttonVariants = cva(
       size: {
         default: "h-11 px-4 text-[15px]",
         lg: "h-12 px-4 text-base",
-        sm: "h-9 px-3 text-sm",
+        sm: "h-9 px-3 text-sm [&_svg:not([class*='size-'])]:size-4",
         icon: "size-10",
       },
     },

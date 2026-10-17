@@ -44,7 +44,7 @@ export function Hero() {
         variants={item}
         className="text-[clamp(36px,7vw,48px)] leading-[1.1] font-semibold tracking-[-0.03em] text-balance"
       >
-        {profile.displayName}
+        {profile.name}
       </motion.h1>
 
       <motion.p
