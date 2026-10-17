@@ -18,7 +18,7 @@ export const profile = {
   cv: {
     href: "/CV-Alaaeddine-Ahriz.pdf",
     fileName: "CV-Alaaeddine-Ahriz.pdf",
-    preview: { src: "/cv-apercu.jpg", width: 760, height: 1075 },
+    page: { src: "/cv/page-1.jpg", width: 1654, height: 2339 },
   },
 };
 
@@ -38,7 +38,7 @@ export const logos: Logo[] = [
   { name: "KAIST", src: "/logos/kaist.png", width: 98, height: 28 },
   { name: "CGI", src: "/logos/cgi.png", width: 60, height: 28 },
   { name: "ENEDIS", src: "/logos/enedis.png", width: 117, height: 24 },
-  { name: "Eaton" },
+  { name: "Eaton", src: "/logos/eaton.png", width: 88, height: 24 },
   { name: "Efficience Engineering", src: "/logos/efficience.svg", width: 90, height: 28 },
   { name: "ESSEC Club of Economics", src: "/logos/essec-club-economics.png", width: 120, height: 36 },
   { name: "ACEIMI", src: "/logos/aceimi.png", width: 71, height: 40 },

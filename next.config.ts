@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // The full-screen CV viewer asks for 90 so small print stays crisp.
+  images: { qualities: [75, 90] },
   async headers() {
     return [
       {

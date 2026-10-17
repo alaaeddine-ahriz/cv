@@ -36,10 +36,100 @@ function MailIcon() {
   );
 }
 
+function CopyIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="9" y="9" width="12" height="12" rx="2" />
+      <path d="M5 15H4a1 1 0 01-1-1V4a1 1 0 011-1h10a1 1 0 011 1v1" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 12l5 5L20 7" />
+    </svg>
+  );
+}
+
+/**
+ * mailto: does nothing for people on webmail without a mail handler, so the
+ * Email button offers to copy the address too.
+ */
+function EmailButton() {
+  const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onPointer = (e: PointerEvent) => {
+      if (!root.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("pointerdown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!copied) return;
+    const t = setTimeout(() => setCopied(false), 1800);
+    return () => clearTimeout(t);
+  }, [copied]);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email);
+      setCopied(true);
+    } catch {
+      window.location.href = `mailto:${profile.email}`;
+    }
+  };
+
+  return (
+    <div className="email-wrap" ref={root}>
+      <button
+        type="button"
+        className="btn-brand email"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <MailIcon />
+        <span>Email</span>
+      </button>
+      {open && (
+        <div className="email-menu" role="menu">
+          <span className="email-address">{profile.email}</span>
+          <a
+            role="menuitem"
+            className="email-item"
+            href={`mailto:${profile.email}`}
+            onClick={() => setOpen(false)}
+          >
+            <MailIcon />
+            Écrire un email
+          </a>
+          <button role="menuitem" type="button" className="email-item" onClick={copy}>
+            {copied ? <CheckIcon /> : <CopyIcon />}
+            <span aria-live="polite">{copied ? "Adresse copiée" : "Copier l’adresse"}</span>
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /**
  * The three contact buttons, pinned to the top of the viewport once the
  * reader scrolls past them. A zero-height sentinel just above the bar tells
- * us when it is stuck, so it only gets its backdrop and divider then.
+ * us when it is stuck; only then does it get its backdrop, and on wide
+ * screens the name on the left, like a navbar.
  */
 export function ContactBar() {
   const sentinel = useRef<HTMLDivElement>(null);
@@ -63,6 +153,14 @@ export function ContactBar() {
         data-stuck={stuck || undefined}
         aria-label="Me contacter"
       >
+        <a
+          className="bar-name"
+          href="#top"
+          tabIndex={stuck ? 0 : -1}
+          aria-hidden={!stuck}
+        >
+          {profile.displayName}
+        </a>
         <div className="contacts">
           <a
             className="btn-brand linkedin"
@@ -82,10 +180,7 @@ export function ContactBar() {
             <WhatsAppIcon />
             <span>WhatsApp</span>
           </a>
-          <a className="btn-brand email" href={`mailto:${profile.email}`}>
-            <MailIcon />
-            <span>Email</span>
-          </a>
+          <EmailButton />
         </div>
       </nav>
     </>

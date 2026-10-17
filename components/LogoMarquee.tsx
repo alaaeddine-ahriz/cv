@@ -24,7 +24,7 @@ function Item({ logo, hidden }: { logo: Logo; hidden: boolean }) {
 
 export function LogoMarquee() {
   return (
-    <div className="banner" aria-label="Écoles, entreprises et associations">
+    <div id="top" className="banner" aria-label="Écoles, entreprises et associations">
       <ul className="marquee">
         {Array.from({ length: COPIES }, (_, copy) =>
           logos.map((logo) => (

@@ -9,7 +9,12 @@
   --border-strong: #cfcbc3;
   --font: var(--font-geist-sans), Helvetica, Arial, sans-serif;
   --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --ease-spring: cubic-bezier(.3, 1.3, .5, 1);
   --marquee-speed: 80s;
+  --marquee-gap: 64px;
+  --radius: 8px;
+  --shadow-paper: 0 1px 2px rgb(29 28 26 / .06), 0 8px 24px -8px rgb(29 28 26 / .14);
+  --shadow-lift: 0 2px 4px rgb(29 28 26 / .06), 0 18px 40px -12px rgb(29 28 26 / .22);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -21,15 +26,21 @@ html, body {
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
 }
+html { scroll-behavior: smooth; }
 
 /* The sticky bar's backdrop is 100vw wide; clip (unlike hidden) keeps
    position: sticky working while hiding the scrollbar-width overhang. */
 body { overflow-x: clip; }
 
+/* Keep the page still behind the CV viewer. */
+html:has(dialog[open]) { overflow: hidden; }
+
 a { color: var(--ink); text-decoration: none; }
 a:hover { color: #000; }
-a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+button { font: inherit; color: inherit; }
 
 @keyframes reveal {
   from { opacity: 0; transform: translateY(14px); }
@@ -40,7 +51,7 @@ a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
   to { transform: translateX(-50%); }
 }
 
-/* Logo banner */
+/* ---------- Logo banner ---------- */
 .banner {
   width: 100%;
   overflow: hidden;
@@ -54,9 +65,9 @@ a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 .marquee {
   display: flex;
   align-items: center;
-  gap: 64px;
+  gap: var(--marquee-gap);
   width: max-content;
-  padding: 0 64px 0 0;
+  padding: 0 var(--marquee-gap) 0 0;
   margin: 0;
   list-style: none;
   animation: marquee var(--marquee-speed) linear infinite;
@@ -68,14 +79,26 @@ a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
   color: var(--marquee);
   white-space: nowrap;
 }
-.marquee img { width: auto; opacity: .75; filter: grayscale(1); display: block; }
+.marquee img {
+  display: block;
+  width: auto;
+  opacity: .75;
+  filter: grayscale(1);
+  transition: opacity .3s ease, filter .3s ease;
+}
+/* Hovering the banner holds it still; the logo under the pointer gets its
+   colours back. */
+@media (hover: hover) {
+  .banner:hover .marquee { animation-play-state: paused; }
+  .marquee li:hover img { opacity: 1; filter: none; }
+}
 
-/* Main column */
+/* ---------- Main column ---------- */
 main {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  padding: clamp(48px, 10vh, 110px) 24px 48px;
+  padding: clamp(48px, 10vh, 110px) 24px 64px;
 }
 .col {
   width: 100%;
@@ -85,11 +108,20 @@ main {
   gap: 36px;
 }
 
+/* Above the fold: plays once on load. */
 .reveal { animation: reveal .7s var(--ease-out) both; }
 .d1 { animation-delay: 100ms; }
 .d2 { animation-delay: 250ms; }
-.d3 { animation-delay: 400ms; }
-.d4 { animation-delay: 550ms; }
+
+/* Below: plays when scrolled into view. Only hidden when JS can show it. */
+@media (scripting: enabled) {
+  .on-scroll {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  }
+  .on-scroll[data-visible] { opacity: 1; transform: none; }
+}
 
 header { display: flex; flex-direction: column; gap: 14px; }
 h1 {
@@ -99,7 +131,7 @@ h1 {
   font-weight: 600;
   letter-spacing: -0.03em;
 }
-h2 { margin: 0; font-size: 22px; font-weight: 600; }
+h2 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
 .lead {
   margin: 0;
   font-size: 18px;
@@ -108,10 +140,11 @@ h2 { margin: 0; font-size: 22px; font-weight: 600; }
   text-wrap: pretty;
 }
 
-/* Contact bar: sits in the column like before, then pins to the top.
-   The bar's negative margin cancels its padding so the resting layout keeps
-   the design's 36px rhythm; the sentinel's margins put it exactly at the
-   bar's top edge without adding a gap of its own. */
+/* ---------- Contact bar ----------
+   Sits in the column like before, then pins to the top. The bar's negative
+   margin cancels its padding so the resting layout keeps the design's 36px
+   rhythm; the sentinel's margins put it exactly at the bar's top edge
+   without adding a gap of its own. */
 .contact-sentinel { height: 0; margin: -12px 0 -24px; }
 .contact-bar {
   position: sticky;
@@ -128,13 +161,36 @@ h2 { margin: 0; font-size: 22px; font-weight: 600; }
   transform: translateX(-50%);
   z-index: -1;
   background: var(--bg-glass);
-  -webkit-backdrop-filter: saturate(1.4) blur(12px);
-  backdrop-filter: saturate(1.4) blur(12px);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  backdrop-filter: saturate(1.4) blur(14px);
   border-bottom: 1px solid var(--border-soft);
+  box-shadow: 0 6px 20px -14px rgb(29 28 26 / .25);
   opacity: 0;
-  transition: opacity .2s ease;
+  transition: opacity .25s ease;
 }
 .contact-bar[data-stuck]::before { opacity: 1; }
+
+/* The name only joins the bar where there is room left of the column. */
+.bar-name {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 32px);
+  white-space: nowrap;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-8px, -50%);
+  transition: opacity .25s ease, transform .35s var(--ease-out);
+}
+@media (min-width: 1040px) {
+  .contact-bar[data-stuck] .bar-name {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(0, -50%);
+  }
+}
 
 .contacts {
   display: grid;
@@ -142,72 +198,243 @@ h2 { margin: 0; font-size: 22px; font-weight: 600; }
   gap: 10px;
 }
 .btn-brand {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   padding: 14px 16px;
-  border-radius: 8px;
+  border: 0;
+  border-radius: var(--radius);
   color: #fff;
   font-size: 16px;
   font-weight: 600;
   white-space: nowrap;
-  transition: background-color .15s ease, padding .2s ease;
+  cursor: pointer;
+  transition: background-color .15s ease, transform .2s var(--ease-spring), box-shadow .2s ease;
 }
 .btn-brand:hover { color: #fff; }
+.btn-brand:active { transform: scale(.97); }
+@media (hover: hover) {
+  .btn-brand:hover { transform: translateY(-1px); box-shadow: 0 6px 16px -8px rgb(29 28 26 / .45); }
+  .btn-brand:active { transform: scale(.97); box-shadow: none; }
+}
 .btn-brand svg { width: 18px; height: 18px; flex: none; }
 .linkedin { background: #0a66c2; }
 .linkedin:hover { background: #004182; }
 .whatsapp { background: #1f9d55; }
 .whatsapp:hover { background: #17803f; }
 .email { background: #2b2a27; }
-.email:hover { background: #000; }
+.email:hover, .email[aria-expanded="true"] { background: #000; }
 
-/* Once pinned, the buttons slim down so the bar doesn't eat the screen. */
-.contact-bar[data-stuck] .btn-brand { padding-top: 10px; padding-bottom: 10px; }
-
-@media (max-width: 420px) {
-  .contacts { gap: 6px; }
-  .btn-brand { gap: 5px; padding: 12px 4px; font-size: 14px; }
-  .btn-brand svg { width: 16px; height: 16px; }
+/* Email menu */
+.email-wrap { position: relative; }
+.email-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 20;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lift);
+  transform-origin: top right;
+  animation: menu-in .18s var(--ease-out);
 }
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-4px) scale(.97); }
+}
+.email-address {
+  padding: 8px 10px 6px;
+  font-size: 13px;
+  color: var(--marquee);
+}
+.email-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+}
+.email-item:hover { background: #f3f1ed; color: var(--ink); }
+.email-item svg { width: 16px; height: 16px; flex: none; color: var(--muted); }
 
-/* CV */
-.cv { display: flex; flex-direction: column; gap: 12px; }
+/* ---------- CV ---------- */
+.cv { display: flex; flex-direction: column; gap: 14px; }
+
+/* The page as a sheet of paper, cropped to the top part with a fade. */
+.cv-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-height: 520px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow-paper);
+  cursor: zoom-in;
+  transition: box-shadow .3s ease, transform .3s var(--ease-out);
+}
+.cv-card img { display: block; width: 100%; height: auto; }
+.cv-card-fade {
+  position: absolute;
+  inset: auto 0 0;
+  height: 45%;
+  background: linear-gradient(to bottom, rgb(255 255 255 / 0), #fff 85%);
+  pointer-events: none;
+}
+.cv-card-cta {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  transition: transform .25s var(--ease-spring), background-color .15s ease;
+}
+.cv-card-cta svg { width: 16px; height: 16px; }
+@media (hover: hover) {
+  .cv-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-2px); }
+  .cv-card:hover .cv-card-cta { background: #000; transform: translateX(-50%) scale(1.04); }
+}
+.cv-card:active { transform: scale(.995); }
+
 .cv-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding: 11px 18px;
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: #fff;
   border: 1px solid var(--border-strong);
   font-size: 16px;
   font-weight: 600;
-  transition: border-color .15s ease;
+  cursor: pointer;
+  transition: border-color .15s ease, transform .2s var(--ease-spring);
 }
+.btn-secondary svg { width: 17px; height: 17px; color: var(--muted); }
 .btn-secondary:hover { border-color: var(--ink); }
+.btn-secondary:active { transform: scale(.97); }
 
-.cv-frame {
-  display: block;
+/* Full-screen viewer */
+.viewer {
   width: 100%;
-  height: min(80vh, 820px);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: #fff;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: auto;
+  overscroll-behavior: contain;
+  opacity: 0;
+  transition: opacity .25s ease, overlay .25s allow-discrete, display .25s allow-discrete;
 }
-.cv-image { display: none; }
-.cv-image img {
+.viewer[open] { opacity: 1; }
+@starting-style { .viewer[open] { opacity: 0; } }
+.viewer::backdrop {
+  background: rgb(20 19 18 / .72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+/* Fixed rather than sticky so it stays put when the zoomed page scrolls
+   sideways (a modal dialog's fixed children track the viewport). */
+.viewer-bar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  color: #fff;
+  background: rgb(20 19 18 / .78);
+  -webkit-backdrop-filter: saturate(1.2) blur(12px);
+  backdrop-filter: saturate(1.2) blur(12px);
+  border-bottom: 1px solid rgb(255 255 255 / .08);
+}
+.viewer-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: .85;
+}
+.viewer-actions { display: flex; gap: 8px; flex: none; }
+.viewer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid rgb(255 255 255 / .18);
+  border-radius: 999px;
+  background: rgb(255 255 255 / .1);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: background-color .15s ease, transform .2s var(--ease-spring);
+}
+.viewer-btn:hover { color: #fff; background: rgb(255 255 255 / .2); }
+.viewer-btn:active { transform: scale(.95); }
+.viewer-btn svg { width: 17px; height: 17px; flex: none; }
+.viewer-close { width: 40px; padding: 0; justify-content: center; }
+
+.viewer-page {
+  width: max-content;
+  min-width: 100%;
+  padding: 68px 16px 48px;
+  cursor: zoom-out;
+}
+.viewer-page img {
   display: block;
-  width: 100%;
+  width: min(860px, calc(100vw - 32px));
   height: auto;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  margin: 0 auto;
+  border-radius: 4px;
   background: #fff;
+  box-shadow: 0 30px 80px -20px rgb(0 0 0 / .6);
+  cursor: zoom-in;
+  transform-origin: top center;
+  transition: transform .35s var(--ease-out);
 }
-@media (max-width: 700px), (pointer: coarse) {
-  .cv-frame { display: none; }
-  .cv-image { display: block; }
+.viewer[data-zoomed] .viewer-page img {
+  width: min(1654px, 200vw);
+  cursor: zoom-out;
 }
+@starting-style { .viewer[open] .viewer-page img { transform: translateY(16px) scale(.98); } }
 
+/* ---------- About ---------- */
 .about { display: flex; flex-direction: column; gap: 10px; }
 .about p {
   margin: 0;
@@ -217,6 +444,39 @@ h2 { margin: 0; font-size: 22px; font-weight: 600; }
   text-wrap: pretty;
 }
 
+/* ---------- Phones ---------- */
+@media (max-width: 600px) {
+  :root { --marquee-gap: 40px; }
+  .banner { padding: 14px 0; }
+  .marquee img { transform: scale(.85); }
+  main { padding-top: 40px; }
+  .col { gap: 32px; }
+  .lead { font-size: 17px; }
+  .cv-card { max-height: 400px; }
+
+  /* Three equal buttons read better than a wrapped row on a phone. */
+  .cv-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .btn-secondary { justify-content: center; padding: 11px 8px; font-size: 15px; }
+
+  /* Icons only in the viewer bar; the labels don't fit beside the title. */
+  .viewer-bar { padding: 10px 12px; }
+  .viewer-btn span { display: none; }
+  .viewer-btn { width: 40px; padding: 0; justify-content: center; }
+  .viewer-page { padding: 60px 0 32px; }
+  .viewer-page img { width: 100vw; border-radius: 0; }
+
+  /* The email menu would spill off the right edge under a narrow button. */
+  .email-menu { min-width: 0; width: max-content; max-width: calc(100vw - 32px); }
+}
+
+@media (max-width: 420px) {
+  .contacts { gap: 6px; }
+  .btn-brand { gap: 5px; padding: 12px 4px; font-size: 14px; }
+  .btn-brand svg { width: 16px; height: 16px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  .on-scroll { opacity: 1; transform: none; }
 }
