@@ -37,6 +37,24 @@
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out"
   },
+  "Share": {
+    "button": "Share this profile",
+    "title": "Know someone who’d be interested?",
+    "description": "Forward it to your HR director or a colleague in one click, with a message already written.",
+    "menuLabel": "Share via",
+    "email": "By email",
+    "whatsapp": "On WhatsApp",
+    "linkedin": "On LinkedIn",
+    "copyMessage": "Copy the message",
+    "copyLink": "Copy the link",
+    "native": "More options…",
+    "copiedMessage": "Message copied",
+    "copiedMessageHint": "Paste it into Teams, Slack or an email.",
+    "copiedLink": "Link copied",
+    "subject": "Profile worth a look: Alaaeddine Ahriz, work-study from January 2027",
+    "body": "Hello,\n\nHere is Alaaeddine Ahriz’s profile: an INSA Lyon engineer and ESSEC student looking for a 24-month work-study position from January 2027, in consulting, digital transformation or industry.\n\nHe spent three years as an apprentice at CGI, including eight months as Product Owner for ENEDIS.\n\nProfile and resume: {url}\n\nWorth considering for our work-study hiring.",
+    "short": "Profile worth a look for a work-study position from January 2027: Alaaeddine Ahriz, INSA Lyon engineer and ESSEC student (3 years at CGI, Product Owner for ENEDIS). Profile and resume: {url}"
+  },
   "Footer": {
     "rights": "© {year} Alaaeddine Ahriz"
   }

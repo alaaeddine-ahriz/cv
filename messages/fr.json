@@ -37,6 +37,24 @@
     "zoomIn": "Zoomer",
     "zoomOut": "Dézoomer"
   },
+  "Share": {
+    "button": "Partager ce profil",
+    "title": "Vous connaissez quelqu’un que ce profil intéresserait ?",
+    "description": "Transmettez-le à votre DRH ou à un collègue en un clic, avec un message déjà rédigé.",
+    "menuLabel": "Partager via",
+    "email": "Par email",
+    "whatsapp": "Par WhatsApp",
+    "linkedin": "Sur LinkedIn",
+    "copyMessage": "Copier le message",
+    "copyLink": "Copier le lien",
+    "native": "Plus d’options…",
+    "copiedMessage": "Message copié",
+    "copiedMessageHint": "Collez-le dans Teams, Slack ou un email.",
+    "copiedLink": "Lien copié",
+    "subject": "Profil à regarder : Alaaeddine Ahriz, alternance dès janvier 2027",
+    "body": "Bonjour,\n\nVoici le profil d’Alaaeddine Ahriz, ingénieur INSA Lyon et étudiant à l’ESSEC. Il recherche une alternance de 24 mois à partir de janvier 2027, en conseil, transformation digitale ou industrie.\n\nIl a fait trois ans d’apprentissage chez CGI, dont huit mois comme Product Owner pour ENEDIS.\n\nProfil et CV : {url}\n\nÀ regarder pour nos recrutements en alternance.",
+    "short": "Profil à regarder pour une alternance dès janvier 2027 : Alaaeddine Ahriz, ingénieur INSA Lyon et étudiant à l’ESSEC (3 ans chez CGI, Product Owner pour ENEDIS). Profil et CV : {url}"
+  },
   "Footer": {
     "rights": "© {year} Alaaeddine Ahriz"
   }

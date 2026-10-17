@@ -48,6 +48,7 @@ Le CV n'existe qu'en français ; la version anglaise le signale sous les boutons
 | Bandeau défilant | `components/LogoMarquee.tsx` |
 | Barre de contact collante, menu Email | `components/ContactBar.tsx` |
 | Aperçu du CV et visionneuse | `components/CvPreview.tsx` |
+| Bouton et carte « Partager ce profil » | `components/ShareMenu.tsx` (messages pré-remplis : `Share.subject`, `Share.body`, `Share.short` dans `messages/*.json`) |
 | Couleurs, rayons, police, style de la visionneuse | `app/globals.css` |
 | SEO, Open Graph, hreflang | `app/[locale]/layout.tsx` (l'URL du site est `siteUrl` dans `lib/site.ts`) |
 
