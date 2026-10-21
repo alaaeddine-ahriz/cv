@@ -61,9 +61,10 @@ Chaque entrée de `logos` prend un `name`, et optionnellement `src`, `width` et 
 1. Remplacer `public/CV-Alaaeddine-Ahriz.pdf`.
 2. Régénérer l'image de la page (aperçu et visionneuse) :
    ```sh
-   pdftoppm -jpeg -jpegopt quality=90 -r 200 -f 1 -l 1 -singlefile public/CV-Alaaeddine-Ahriz.pdf public/cv/page-1
-   convert public/cv/page-1.jpg -strip -quality 84 public/cv/page-1.jpg
+   pdftoppm -jpeg -jpegopt quality=90 -r 200 -f 1 -l 1 -singlefile public/CV-Alaaeddine-Ahriz.pdf public/cv/cv-AAAA-MM
+   convert public/cv/cv-AAAA-MM.jpg -strip -quality 84 public/cv/cv-AAAA-MM.jpg
    ```
+   Donner un nouveau nom à chaque version (supprimer l'ancien fichier) et le reporter dans `cv.page.src` (`lib/site.ts`) : sinon les caches d'images de Vercel et des navigateurs peuvent continuer à afficher l'ancien aperçu.
    Si le CV passe à plusieurs pages ou change de format, mettre à jour `cv.page` dans `lib/site.ts`.
 
 ## Déploiement

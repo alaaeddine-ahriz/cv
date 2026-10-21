@@ -13,7 +13,7 @@ export const profile = {
   cv: {
     href: "/CV-Alaaeddine-Ahriz.pdf",
     fileName: "CV-Alaaeddine-Ahriz.pdf",
-    page: { src: "/cv/page-1.jpg", width: 1654, height: 2339 },
+    page: { src: "/cv/cv-2026-10.jpg", width: 1654, height: 2339 },
   },
 };
 
