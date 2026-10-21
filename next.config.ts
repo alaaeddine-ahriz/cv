@@ -10,11 +10,22 @@ const nextConfig: NextConfig = {
     return [
       {
         // Open the CV in the browser's viewer rather than forcing a download.
-        source: "/CV-Alaaeddine-Ahriz.pdf",
+        source: "/cv/:file*.pdf",
         headers: [
-          { key: "Content-Disposition", value: 'inline; filename="CV-Alaaeddine-Ahriz.pdf"' },
+          { key: "Content-Disposition", value: 'inline; filename="CV-Alaaeddine-AHRIZ.pdf"' },
           { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
         ],
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        // Links shared before the CV got dated file names. Temporary (307),
+        // so browsers ask again and always land on the current CV.
+        source: "/CV-Alaaeddine-Ahriz.pdf",
+        destination: "/cv/Alaaeddine-AHRIZ-CV-2026-10.pdf",
+        permanent: false,
       },
     ];
   },

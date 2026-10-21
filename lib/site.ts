@@ -11,8 +11,11 @@ export const profile = {
   phone: "+33 6 10 73 37 22",
   whatsapp: "https://wa.me/33610733722",
   cv: {
-    href: "/CV-Alaaeddine-Ahriz.pdf",
-    fileName: "CV-Alaaeddine-Ahriz.pdf",
+    // Dated file names: a new CV gets a new URL, so no cache (Vercel's CDN,
+    // its image optimizer, browsers) can keep serving the previous one. The
+    // old address redirects here (next.config.ts).
+    href: "/cv/Alaaeddine-AHRIZ-CV-2026-10.pdf",
+    fileName: "CV-Alaaeddine-AHRIZ.pdf",
     page: { src: "/cv/cv-2026-10.jpg", width: 1654, height: 2339 },
   },
 };

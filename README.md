@@ -58,7 +58,7 @@ Chaque entrée de `logos` prend un `name`, et optionnellement `src`, `width` et 
 
 ## Mettre à jour le CV
 
-1. Remplacer `public/CV-Alaaeddine-Ahriz.pdf`.
+1. Mettre le nouveau PDF dans `public/cv/` sous un nouveau nom daté (`Alaaeddine-AHRIZ-CV-AAAA-MM.pdf`), supprimer l'ancien, et mettre à jour `cv.href` dans `lib/site.ts` et la destination de la redirection dans `next.config.ts` (pour les anciens liens).
 2. Régénérer l'image de la page (aperçu et visionneuse) :
    ```sh
    pdftoppm -jpeg -jpegopt quality=90 -r 200 -f 1 -l 1 -singlefile public/CV-Alaaeddine-Ahriz.pdf public/cv/cv-AAAA-MM
