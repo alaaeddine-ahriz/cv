@@ -33,7 +33,7 @@ Le français est à `/`, l'anglais à `/en`. Il n'y a pas de sélecteur : à cha
 - La config des langues est dans `i18n/routing.ts`, la redirection dans `proxy.ts`.
 - Pour une troisième langue : l'ajouter à `locales` dans `i18n/routing.ts` et créer `messages/<code>.json`.
 
-Le CV n'existe qu'en français ; la version anglaise le signale sous les boutons (`Cv.note`).
+Le CV est en anglais ; la version française le signale sous les boutons (`Cv.note`, laissé vide côté anglais).
 
 ## Où modifier quoi
 
